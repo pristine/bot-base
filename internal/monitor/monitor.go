@@ -6,6 +6,7 @@ import (
 	"github.com/EdwinJ0124/footsites/internal/task"
 	"github.com/EdwinJ0124/footsites/third_party/hclient"
 	"github.com/lithammer/shortuuid"
+	"sync"
 )
 
 type Monitor struct {
@@ -21,6 +22,8 @@ type Monitor struct {
 }
 
 var(
+	monitorMutex = sync.RWMutex{}
+
 	MonitorNotInTaskGroupErr = errors.New("monitor not in any task group")
 	MonitorDoesNotExistErr = errors.New("monitor does not exist")
 
@@ -29,12 +32,16 @@ var(
 
 // DoesMonitorExist checks if a monitor exists
 func DoesMonitorExist(id string) bool {
+	monitorMutex.RLock()
+	defer monitorMutex.RUnlock()
 	_, ok := monitors[id]
 	return ok
 }
 
 // CreateMonitor creates a monitor
 func CreateMonitor(input string) string {
+	monitorMutex.Lock()
+	defer monitorMutex.Unlock()
 	id := shortuuid.New()
 
 	monitors[id] = &Monitor{
@@ -51,6 +58,9 @@ func RemoveMonitor(id string) error {
 		return MonitorDoesNotExistErr
 	}
 
+	monitorMutex.Lock()
+	defer monitorMutex.Unlock()
+
 	monitor := monitors[id]
 	monitor.Cancel()
 
@@ -64,6 +74,10 @@ func GetMonitor(id string) (*Monitor, error) {
 	if !DoesMonitorExist(id) {
 		return &Monitor{}, MonitorDoesNotExistErr
 	}
+
+	monitorMutex.RLock()
+	defer monitorMutex.RUnlock()
+
 	return monitors[id], nil
 }
 

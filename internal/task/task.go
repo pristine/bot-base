@@ -6,6 +6,7 @@ import (
 	"github.com/EdwinJ0124/footsites/internal/profile"
 	"github.com/EdwinJ0124/footsites/third_party/hclient"
 	"github.com/lithammer/shortuuid"
+	"sync"
 )
 
 type Task struct {
@@ -23,6 +24,8 @@ type Task struct {
 }
 
 var (
+	taskMutex = sync.RWMutex{}
+
 	TaskDoesNotExistErr = errors.New("task does not exist")
 
 	tasks = make(map[string]*Task)
@@ -30,12 +33,17 @@ var (
 
 // DoesTaskExist checks if a task exists
 func DoesTaskExist(id string) bool {
+	taskMutex.RLock()
+	defer taskMutex.RUnlock()
 	_, ok := tasks[id]
 	return ok
 }
 
 // CreateTask creates a task
 func CreateTask(taskType string, params map[string]string) string {
+	taskMutex.Lock()
+	defer taskMutex.Unlock()
+
 	id := shortuuid.New()
 
 	tasks[id] = &Task{
@@ -52,6 +60,9 @@ func RemoveTask(id string) error {
 		return TaskDoesNotExistErr
 	}
 
+	taskMutex.Lock()
+	defer taskMutex.Unlock()
+
 	// stop the task if active
 	task := tasks[id]
 	task.Cancel()
@@ -67,6 +78,9 @@ func GetTask(id string) (*Task, error) {
 		return &Task{}, TaskDoesNotExistErr
 	}
 
+	taskMutex.RLock()
+	defer taskMutex.RUnlock()
+
 	return tasks[id], nil
 }
 
@@ -79,6 +93,9 @@ func AssignProfileGroupToTask(taskId, profileGroupId string) error {
 	if !profile.DoesProfileGroupExist(profileGroupId) {
 		return profile.ProfileGroupDoesNotExistErr
 	}
+
+	taskMutex.Lock()
+	defer taskMutex.Unlock()
 
 	task := tasks[taskId]
 
@@ -97,6 +114,9 @@ func AssignTaskToTaskGroup(taskId, taskGroupId string) error {
 		return TaskGroupDoesNotExistErr
 	}
 
+	taskGroupMutex.Lock()
+	defer taskGroupMutex.Unlock()
+
 	taskGroup := taskGroups[taskGroupId]
 
 	taskGroup.Tasks[taskId] = true
@@ -113,6 +133,9 @@ func RemoveTaskFromTaskGroup(taskId, taskGroupId string) error {
 	if !DoesTaskGroupExist(taskGroupId) {
 		return TaskGroupDoesNotExistErr
 	}
+
+	taskMutex.Lock()
+	defer taskMutex.Unlock()
 
 	taskGroup := taskGroups[taskGroupId]
 

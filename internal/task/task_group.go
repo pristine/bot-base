@@ -3,6 +3,7 @@ package task
 import (
 	"errors"
 	"github.com/lithammer/shortuuid"
+	"sync"
 )
 
 type TaskGroup struct {
@@ -13,6 +14,8 @@ type TaskGroup struct {
 }
 
 var (
+	taskGroupMutex = sync.RWMutex{}
+
 	TaskGroupDoesNotExistErr = errors.New("task group does not exist")
 
 	taskGroups = make(map[string]*TaskGroup)
@@ -20,12 +23,16 @@ var (
 
 // DoesTaskGroupExist determines if a task group is present
 func DoesTaskGroupExist(id string) bool {
+	taskGroupMutex.RLock()
+	defer taskGroupMutex.RUnlock()
 	_, ok := taskGroups[id]
 	return ok
 }
 
 // CreateTaskGroup creates a new task group
 func CreateTaskGroup(name string) string {
+	taskGroupMutex.Lock()
+	defer taskGroupMutex.Unlock()
 	id := shortuuid.New()
 
 	taskGroups[id] = &TaskGroup{
@@ -43,6 +50,9 @@ func RemoveTaskGroup(id string) error {
 		return TaskGroupDoesNotExistErr
 	}
 
+	taskGroupMutex.Lock()
+	defer taskGroupMutex.Unlock()
+
 	delete(taskGroups, id)
 
 	return nil
@@ -54,6 +64,9 @@ func GetTaskGroup(id string) (*TaskGroup, error) {
 		return &TaskGroup{}, TaskGroupDoesNotExistErr
 	}
 
+	taskGroupMutex.RLock()
+	defer taskGroupMutex.RUnlock()
+
 	return taskGroups[id], nil
 }
 
@@ -62,6 +75,9 @@ func GetTaskIDs(id string) ([]string, error) {
 	if !DoesTaskGroupExist(id) {
 		return []string{}, TaskGroupDoesNotExistErr
 	}
+
+	taskGroupMutex.RLock()
+	defer taskGroupMutex.RUnlock()
 
 	ids := make([]string, 0)
 
@@ -76,6 +92,9 @@ func GetTaskIDs(id string) ([]string, error) {
 
 // GetAllTaskGroupIDs gets all task group ids
 func GetAllTaskGroupIDs() []string {
+	taskGroupMutex.RLock()
+	defer taskGroupMutex.RUnlock()
+
 	ids := make([]string, 0)
 
 	for id := range taskGroups {
