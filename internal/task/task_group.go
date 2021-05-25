@@ -76,9 +76,20 @@ func GetTaskIDs(id string) ([]string, error) {
 
 // GetAllTaskGroupIDs gets all task group ids
 func GetAllTaskGroupIDs() []string {
-	ids := []string{}
+	ids := make([]string, 0)
 
 	for id := range taskGroups {
+		ids = append(ids, id)
+	}
+
+	return ids
+}
+
+// GetAllTaskIDs gets all task ids
+func (t *TaskGroup) GetAllTaskIDs() []string {
+	ids := make([]string, 0)
+
+	for id := range t.Tasks {
 		ids = append(ids, id)
 	}
 

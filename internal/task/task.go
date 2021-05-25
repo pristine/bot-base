@@ -10,14 +10,16 @@ import (
 
 type Task struct {
 	ID             string             `json:"id"`
+	Params		   map[string]string   `json:"params"`
 	Type           string             `json:"type"`
 	ProfileGroupID string             `json:"profileGroupID"`
 	ProxyListID    string             `json:"proxyListID"`
 	Context        context.Context    `json:"-"`
 	Cancel         context.CancelFunc `json:"-"`
 	Internal       interface{}        `json:"-"`
-	Client		   *hclient.Client     `json:"-"`
+	Client		   *hclient.Client    `json:"-"`
 	Active         bool               `json:"-"`
+	MonitorData	   interface{}		  `json:"-"`
 }
 
 var (
@@ -33,11 +35,12 @@ func DoesTaskExist(id string) bool {
 }
 
 // CreateTask creates a task
-func CreateTask(taskType string) string {
+func CreateTask(taskType string, params map[string]string) string {
 	id := shortuuid.New()
 
 	tasks[id] = &Task{
 		Type: taskType,
+		Params: params,
 	}
 
 	return id
@@ -56,6 +59,15 @@ func RemoveTask(id string) error {
 	delete(tasks, id)
 
 	return nil
+}
+
+// GetTask gets a task
+func GetTask(id string) (*Task, error) {
+	if !DoesTaskExist(id) {
+		return &Task{}, TaskDoesNotExistErr
+	}
+
+	return tasks[id], nil
 }
 
 // AssignProfileGroupToTask assigns a profile group to a task

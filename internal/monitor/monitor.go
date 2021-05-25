@@ -10,15 +10,18 @@ import (
 
 type Monitor struct {
 	ID string 						  `json:"id"`
+	Type string						  `json:"type"`
 	Input string 					  `json:"input"`
 	ProxyListID    string             `json:"proxyListID"`
 	Internal       interface{}        `json:"-"`
 	Context        context.Context    `json:"-"`
 	Cancel         context.CancelFunc `json:"-"`
 	Client *hclient.Client 			  `json:"-"`
+	Active	bool					  `json:"-"`
 }
 
 var(
+	MonitorNotInTaskGroupErr = errors.New("monitor not in any task group")
 	MonitorDoesNotExistErr = errors.New("monitor does not exist")
 
 	monitors = make(map[string]*Monitor)
@@ -78,4 +81,41 @@ func AssignMonitorToTaskGroup(monitorId, taskGroupId string) error {
 	taskGroup.Monitors[monitorId] = true
 
 	return nil
+}
+
+// NotifyTasks notifies tasks
+func (m *Monitor) NotifyTasks(id string, monitorData interface{}) error {
+	if !DoesMonitorExist(id) {
+		return MonitorDoesNotExistErr
+	}
+
+	associatedTaskGroup, err := m.GetAssociatedTaskGroup()
+
+	if err != nil {
+		return err
+	}
+
+	taskIds := associatedTaskGroup.GetAllTaskIDs()
+
+	for _, id := range taskIds {
+		task, _ := task.GetTask(id)
+
+		task.MonitorData = monitorData
+	}
+
+	return nil
+}
+
+func (m *Monitor) GetAssociatedTaskGroup() (*task.TaskGroup, error) {
+	taskGroupIds := task.GetAllTaskGroupIDs()
+
+	for _, taskGroupId := range taskGroupIds {
+		taskGroup, _ := task.GetTaskGroup(taskGroupId)
+
+		if taskGroup.Monitors[m.ID] {
+			return taskGroup, nil
+		}
+	}
+
+	return &task.TaskGroup{}, MonitorNotInTaskGroupErr
 }
