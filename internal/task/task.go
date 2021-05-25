@@ -3,19 +3,21 @@ package task
 import (
 	"context"
 	"errors"
+	"github.com/EdwinJ0124/footsites/internal/profile"
 	"github.com/EdwinJ0124/footsites/pkg/hclient"
 	"github.com/lithammer/shortuuid"
 )
 
 type Task struct {
 	ID             string             `json:"id"`
-	Site           string             `json:"site"`
+	Type           string             `json:"type"`
 	ProfileGroupID string             `json:"profileGroupID"`
 	ProxyListID    string             `json:"proxyListID"`
 	Context        context.Context    `json:"-"`
 	Cancel         context.CancelFunc `json:"-"`
 	Internal       interface{}        `json:"-"`
 	Client		   *hclient.Client     `json:"-"`
+	Active         bool               `json:"-"`
 }
 
 var (
@@ -31,20 +33,63 @@ func DoesTaskExist(id string) bool {
 }
 
 // CreateTask creates a task
-func CreateTask(site string) string {
+func CreateTask(taskType string) string {
 	id := shortuuid.New()
 
 	tasks[id] = &Task{
-		Site: site,
+		Type: taskType,
 	}
 
 	return id
 }
 
+// AssignProfileGroupToTask assigns a profile group to a task
 func AssignProfileGroupToTask(taskId, profileGroupId string) error {
 	if !DoesTaskExist(taskId) {
 		return TaskDoesNotExistErr
 	}
 
+	if !profile.DoesProfileGroupExist(profileGroupId) {
+		return profile.ProfileGroupDoesNotExistErr
+	}
 
+	task := tasks[taskId]
+
+	task.ProfileGroupID = profileGroupId
+
+	return nil
+}
+
+// AssignTaskToTaskGroup assigns a task to a task group
+func AssignTaskToTaskGroup(taskId, taskGroupId string) error {
+	if !DoesTaskExist(taskId) {
+		return TaskDoesNotExistErr
+	}
+
+	if !DoesTaskGroupExist(taskGroupId) {
+		return TaskGroupDoesNotExistErr
+	}
+
+	taskGroup := taskGroups[taskGroupId]
+
+	taskGroup.Tasks[taskId] = true
+
+	return nil
+}
+
+// RemoveTaskFromTaskGroup removes a task from a task group
+func RemoveTaskFromTaskGroup(taskId, taskGroupId string) error {
+	if !DoesTaskExist(taskId) {
+		return TaskDoesNotExistErr
+	}
+
+	if !DoesTaskGroupExist(taskGroupId) {
+		return TaskGroupDoesNotExistErr
+	}
+
+	taskGroup := taskGroups[taskGroupId]
+
+	delete(taskGroup.Tasks, taskId)
+
+	return nil
 }
