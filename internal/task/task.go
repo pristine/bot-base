@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	"github.com/EdwinJ0124/footsites/internal/profile"
-	"github.com/EdwinJ0124/footsites/pkg/hclient"
+	"github.com/EdwinJ0124/footsites/third_party/hclient"
 	"github.com/lithammer/shortuuid"
 )
 
@@ -41,6 +41,21 @@ func CreateTask(taskType string) string {
 	}
 
 	return id
+}
+
+// RemoveTask removes a task
+func RemoveTask(id string) error {
+	if !DoesTaskExist(id) {
+		return TaskDoesNotExistErr
+	}
+
+	// stop the task if active
+	task := tasks[id]
+	task.Cancel()
+
+	delete(tasks, id)
+
+	return nil
 }
 
 // AssignProfileGroupToTask assigns a profile group to a task

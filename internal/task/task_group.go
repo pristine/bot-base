@@ -8,6 +8,7 @@ import (
 type TaskGroup struct {
 	ID string `json:"id"`
 	Name string `json:"name"`
+	Monitors map[string]bool `json:"monitorId"`
 	Tasks map[string]bool `json:"tasks"`
 }
 
@@ -62,7 +63,7 @@ func GetTaskIDs(id string) ([]string, error) {
 		return []string{}, TaskGroupDoesNotExistErr
 	}
 
-	ids := []string{}
+	ids := make([]string, 0)
 
 	taskGroup := taskGroups[id]
 
@@ -78,6 +79,22 @@ func GetAllTaskGroupIDs() []string {
 	ids := []string{}
 
 	for id := range taskGroups {
+		ids = append(ids, id)
+	}
+
+	return ids
+}
+
+// HasMonitors checks if task groups has monitors
+func (t *TaskGroup) HasMonitors() bool {
+	return len(t.Monitors) > 0
+}
+
+// GetAllMonitorIDs gets all monitor ids
+func (t *TaskGroup) GetAllMonitorIDs() []string {
+	ids := make([]string, 0)
+
+	for id := range t.Monitors {
 		ids = append(ids, id)
 	}
 

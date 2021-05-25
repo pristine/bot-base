@@ -48,8 +48,8 @@ func RemoveProfileGroup(id string) error {
 	return nil
 }
 
-// GetProfileGroupById gets a profile group by id
-func GetProfileGroupById(id string) (*ProfileGroup, error) {
+// GetProfileGroup gets a profile group by id
+func GetProfileGroup(id string) (*ProfileGroup, error) {
 	if !DoesProfileGroupExist(id) {
 		return &ProfileGroup{}, ProfileGroupDoesNotExistErr
 	}
@@ -85,4 +85,15 @@ func GetProfileFromProfileGroup(id string) (*Profile, error) {
 	profileGroup.Profiles.Set(firstProfileId, true)
 
 	return profile, nil
+}
+
+// GetAllProfileGroupIds gets all profile group ids
+func GetAllProfileGroupIds() []string {
+	ids := make([]string, 0)
+
+	for id := range profileGroups {
+		ids = append(ids, id)
+	}
+
+	return ids
 }

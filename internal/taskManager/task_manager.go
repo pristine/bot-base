@@ -7,7 +7,11 @@ import (
 )
 
 func handleTaskState(taskState task.TaskState, taskType *task.TaskType, t *task.Task) task.TaskState {
-	nextTaskHandler := taskType.GetHandler(taskState)
+	nextTaskHandler, err := taskType.GetHandler(taskState)
+
+	if err != nil {
+		return task.ErrorTaskState
+	}
 
 	nextNextTaskType := nextTaskHandler(t)
 
@@ -45,12 +49,21 @@ func RunTask(t *task.Task) {
 
 	nextState := taskType.GetFirstHandlerState()
 
+	if len(nextState) == 0 {
+		t.Active = false
+		return
+	}
+
 	// loop the task states
 	for {
 		nextState = handleTaskState(nextState, taskType, t)
 
 		if nextState == task.DoneTaskState || t.Context.Err() != nil  {
 			// you can report that the task stopped here
+			t.Active = false
+			break
+		} else if nextState == task.ErrorTaskState {
+			// report errors
 			t.Active = false
 			break
 		}
