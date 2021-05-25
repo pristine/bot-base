@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/lithammer/shortuuid"
 	"strings"
+	"sync"
 )
 
 type Proxy struct {
@@ -12,12 +13,16 @@ type Proxy struct {
 }
 
 var (
+	proxyMutex = sync.RWMutex{}
+
 	ProxyDoesNotExistErr = errors.New("proxy does not exist")
 	proxies = make(map[string]*Proxy)
 )
 
 // DoesProxyExist checks if a proxy exists
 func DoesProxyExist(id string) bool {
+	proxyMutex.RLock()
+	defer proxyMutex.RUnlock()
 	_, ok := proxies[id]
 	return ok
 }
@@ -36,6 +41,9 @@ func proxyToProxyUrl(proxy string) string {
 
 // CreateProxy creates a proxy
 func CreateProxy(proxy string) string {
+	proxyMutex.Lock()
+	defer proxyMutex.Unlock()
+
 	id := shortuuid.New()
 
 	proxies[id] = &Proxy{
@@ -51,6 +59,9 @@ func RemoveProxy(id string) error {
 		return ProxyDoesNotExistErr
 	}
 
+	proxyMutex.Lock()
+	defer proxyMutex.Unlock()
+
 	delete(proxies, id)
 	return nil
 }
@@ -59,6 +70,9 @@ func GetProxy(id string) (*Proxy, error) {
 	if !DoesProxyExist(id) {
 		return &Proxy{}, ProxyDoesNotExistErr
 	}
+
+	proxyMutex.RLock()
+	defer proxyMutex.RUnlock()
 
 	return proxies[id], nil
 }

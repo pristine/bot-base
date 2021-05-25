@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/iancoleman/orderedmap"
 	"github.com/lithammer/shortuuid"
+	"sync"
 )
 
 type ProxyGroup struct {
@@ -13,6 +14,8 @@ type ProxyGroup struct {
 }
 
 var (
+	proxyGroupMutex = sync.RWMutex{}
+
 	ProxyGroupEmptyErr = errors.New("proxy group does not contain any proxies")
 	ProxyGroupDoesNotExistErr = errors.New("proxy group does not exist")
 	proxyGroups = make(map[string]*ProxyGroup)
@@ -20,12 +23,16 @@ var (
 
 // DoesProxyGroupExist checks if a proxy group exists
 func DoesProxyGroupExist(id string) bool {
+	proxyGroupMutex.RLock()
+	defer proxyGroupMutex.RUnlock()
 	_, ok := proxyGroups[id]
 	return ok
 }
 
 // CreateProxyGroup creates a new proxy group
 func CreateProxyGroup(name string) string {
+	proxyGroupMutex.Lock()
+	defer proxyGroupMutex.Unlock()
 	id := shortuuid.New()
 
 	proxyGroups[id] = &ProxyGroup{
@@ -43,6 +50,9 @@ func RemoveProxyGroup(id string) error {
 		return ProxyGroupDoesNotExistErr
 	}
 
+	proxyGroupMutex.Lock()
+	defer proxyGroupMutex.Unlock()
+
 	delete(proxyGroups, id)
 
 	return nil
@@ -53,6 +63,9 @@ func GetProxyFromProxyGroup(id string) (*Proxy, error) {
 	if !DoesProxyGroupExist(id) {
 		return &Proxy{}, ProxyGroupDoesNotExistErr
 	}
+
+	proxyGroupMutex.Lock()
+	defer proxyGroupMutex.Unlock()
 
 	proxyGroup := proxyGroups[id]
 
@@ -84,6 +97,9 @@ func GetProxyGroup(id string) (*ProxyGroup, error) {
 	if !DoesProxyGroupExist(id) {
 		return &ProxyGroup{}, ProxyGroupDoesNotExistErr
 	}
+
+	proxyGroupMutex.RLock()
+	defer proxyGroupMutex.RUnlock()
 
 	proxyGroup := proxyGroups[id]
 
