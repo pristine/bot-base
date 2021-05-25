@@ -6,8 +6,9 @@ import (
 )
 
 type TaskGroup struct {
-	Name, ID string
-	Tasks map[string]bool
+	ID string `json:"id"`
+	Name string `json:"name"`
+	Tasks map[string]bool `json:"tasks"`
 }
 
 var (

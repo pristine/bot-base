@@ -11,14 +11,8 @@ func handleTaskState(taskState task.TaskState, taskType *task.TaskType, t *task.
 
 	nextNextTaskType := nextTaskHandler(t)
 
-	if nextNextTaskType == task.DoneTaskState || t.Context.Err() != nil {
-		t.Active = false
-		return task.DoneTaskState
-	}
-
 	return nextNextTaskType
 }
-
 
 // RunTask starts a task
 func RunTask(t *task.Task) {
@@ -55,7 +49,9 @@ func RunTask(t *task.Task) {
 	for {
 		nextState = handleTaskState(nextState, taskType, t)
 
-		if nextState == task.DoneTaskState || t.Context.Err() != nil {
+		if nextState == task.DoneTaskState || t.Context.Err() != nil  {
+			// you can report that the task stopped here
+			t.Active = false
 			break
 		}
 

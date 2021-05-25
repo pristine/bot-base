@@ -7,8 +7,9 @@ import (
 )
 
 type ProfileGroup struct {
-	Name, ID string
-	Profiles *orderedmap.OrderedMap // ordered map to make sure our profile selection works
+	ID string `json:"id"`
+	Name string `json:"name"`
+	Profiles *orderedmap.OrderedMap `json:"profiles"` // ordered map to make sure our profile selection works
 }
 
 var (
