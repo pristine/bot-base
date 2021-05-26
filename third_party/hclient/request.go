@@ -81,11 +81,5 @@ func (r *Request) Do() (*Response, error) {
 		req.Host = r.host
 	}
 
-	if len(r.header.Get("Host")) > 0 {
-		req.Host = r.header.Get("Host")
-
-		r.header.Del("Host")
-	}
-
 	return r.client.Do(req)
 }
