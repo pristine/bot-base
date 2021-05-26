@@ -5,15 +5,6 @@ import (
 	"net/http"
 )
 
-type Response struct {
-	headers http.Header
-
-	body []byte
-
-	status     string
-	statusCode int
-}
-
 // Header returns the response headers
 func (r *Response) Header() http.Header {
 	return r.headers

@@ -1,21 +1,8 @@
 package hclient
 
 import (
-	"io"
 	"net/http"
 )
-
-type Request struct {
-	client *Client
-
-	method, url, host string
-
-	header http.Header
-
-	body io.Reader
-
-	cookies []*http.Cookie
-}
 
 func newRequest(c *Client) *Request {
 	return &Request{

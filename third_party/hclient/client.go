@@ -12,12 +12,6 @@ var (
 	NoCookieJarErr = errors.New("no cookie jar in client")
 )
 
-type Client struct {
-	client *http.Client
-
-	LatestResponse *Response
-}
-
 // NewClient creates a new http client
 // Takes in the optional arguments: proxy, servername
 func NewClient(parameters ...string) (*Client, error) {
