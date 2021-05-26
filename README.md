@@ -7,5 +7,9 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 Please make sure to update tests as appropriate.
 
+## Todo
+- Add tests
+- Rework task system
+
 ## License
 [MIT](https://github.com/EdwinJ0124/footsites/blob/master/LICENSE.md)
