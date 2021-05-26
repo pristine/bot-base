@@ -20,7 +20,6 @@ type Task struct {
 	MonitorData    chan interface{}   `json:"-"`
 }
 
-
 type TaskGroup struct {
 	ID       string          `json:"id"`
 	Name     string          `json:"name"`

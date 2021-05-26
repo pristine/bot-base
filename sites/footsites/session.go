@@ -8,7 +8,7 @@ import (
 func getSession(t *task.Task) task.TaskState {
 	internal := t.Internal.(*footsites)
 
-	resp, err := t.Client.NewRequest().
+	_, err := t.Client.NewRequest().
 		SetURL(fmt.Sprintf("https://%s/api/session", internal.Host)).
 		SetMethod("GET").
 		SetHeader("user-agent", userAgent).
@@ -20,18 +20,18 @@ func getSession(t *task.Task) task.TaskState {
 		return GET_SESSION
 	}
 
-	if resp.StatusCode() > 201 {
-		// message := HandleStatusCodes(resp.StatusCode())
-
-		// handle error and retry
-		return GET_SESSION
-	}
-
 	return handleSessionResponse(t)
 }
 
 func handleSessionResponse(t *task.Task) task.TaskState {
 	internal := t.Internal.(*footsites)
+
+	if t.Client.LatestResponse.StatusCode() > 201 {
+		// message := HandleStatusCodes(resp.StatusCode())
+
+		// handle error and retry
+		return GET_SESSION
+	}
 
 	sessionResponse := SessionResponse{}
 

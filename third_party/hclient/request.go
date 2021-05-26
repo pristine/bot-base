@@ -1,7 +1,11 @@
 package hclient
 
 import (
+	"bytes"
+	"encoding/json"
 	"net/http"
+	"net/url"
+	"strings"
 )
 
 func newRequest(c *Client) *Request {
@@ -46,6 +50,19 @@ func (r *Request) SetHeader(key, value string) *Request {
 // SetHost sets the host of the request
 func (r *Request) SetHost(value string) *Request {
 	r.host = value
+	return r
+}
+
+// SetJSONBody sets the body to a json value
+func (r *Request) SetJSONBody(body interface{}) *Request {
+	b, _ := json.Marshal(body)
+	r.body = bytes.NewBuffer(b)
+	return r
+}
+
+// SetFormBody sets the body to a form value
+func (r *Request) SetFormBody(body url.Values) *Request {
+	r.body = strings.NewReader(body.Encode())
 	return r
 }
 

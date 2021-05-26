@@ -13,5 +13,5 @@ func waitForMonitor(t *task.Task) task.TaskState {
 
 	// handle data
 
-	return task.DoneTaskState
+	return ADD_TO_CART
 }
