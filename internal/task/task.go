@@ -4,27 +4,11 @@ package task
 // there is a better way to handle tasks with interfaces
 
 import (
-	"context"
 	"errors"
 	"github.com/EdwinJ0124/bot-base/internal/profile"
-	"github.com/EdwinJ0124/bot-base/third_party/hclient"
 	"github.com/lithammer/shortuuid"
 	"sync"
 )
-
-type Task struct {
-	ID             string             `json:"id"`
-	Params         map[string]string  `json:"params"`
-	Type           string             `json:"type"`
-	ProfileGroupID string             `json:"profileGroupID"`
-	ProxyListID    string             `json:"proxyListID"`
-	Context        context.Context    `json:"-"`
-	Cancel         context.CancelFunc `json:"-"`
-	Internal       interface{}        `json:"-"`
-	Client         *hclient.Client    `json:"-"`
-	Active         bool               `json:"-"`
-	MonitorData    chan interface{}   `json:"-"`
-}
 
 var (
 	taskMutex = sync.RWMutex{}

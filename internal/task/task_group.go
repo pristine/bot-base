@@ -6,13 +6,6 @@ import (
 	"sync"
 )
 
-type TaskGroup struct {
-	ID       string          `json:"id"`
-	Name     string          `json:"name"`
-	Monitors map[string]bool `json:"monitorId"`
-	Tasks    map[string]bool `json:"tasks"`
-}
-
 var (
 	taskGroupMutex = sync.RWMutex{}
 

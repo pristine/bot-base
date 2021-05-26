@@ -7,12 +7,6 @@ import (
 	"sync"
 )
 
-type ProxyGroup struct {
-	ID      string                 `json:"id"`
-	Name    string                 `json:"name"`
-	Proxies *orderedmap.OrderedMap `json:"proxies"`
-}
-
 var (
 	proxyGroupMutex = sync.RWMutex{}
 

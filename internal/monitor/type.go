@@ -8,11 +8,6 @@ import (
 type MonitorState string
 type MonitorHandlerMap map[MonitorState]func(*Monitor) MonitorState
 
-type MonitorType struct {
-	firstHandlerState MonitorState
-	handlers          *orderedmap.OrderedMap
-}
-
 var (
 	DoneMonitorState  MonitorState = "done"
 	ErrorMonitorState MonitorState = "error"

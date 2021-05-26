@@ -8,10 +8,6 @@ import (
 	"sync"
 )
 
-type Proxy struct {
-	URL string `json:"url"`
-}
-
 var (
 	proxyMutex = sync.RWMutex{}
 

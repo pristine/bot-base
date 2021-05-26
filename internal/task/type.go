@@ -8,11 +8,6 @@ import (
 type TaskState string
 type TaskHandlerMap map[TaskState]func(*Task) TaskState
 
-type TaskType struct {
-	firstHandlerState TaskState
-	handlers          *orderedmap.OrderedMap
-}
-
 var (
 	DoneTaskState  TaskState = "done"
 	ErrorTaskState TaskState = "error"
