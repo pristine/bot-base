@@ -10,4 +10,5 @@ var (
 	VERIFY_EMAIL task.TaskState = "verify_email"
 	SUBMIT_SHIPPING task.TaskState = "submit_shipping"
 	SUBMIT_BILLING task.TaskState = "submit_billing"
+	SUBMIT_ORDER task.TaskState = "submit_order"
 )

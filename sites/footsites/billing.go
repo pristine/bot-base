@@ -67,5 +67,5 @@ func handleSubmitBillingResponse(t *task.Task) task.TaskState {
 		return SUBMIT_BILLING
 	}
 
-	return task.DoneTaskState
+	return SUBMIT_ORDER
 }

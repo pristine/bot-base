@@ -18,5 +18,7 @@ func Initialize() {
 		ADD_TO_CART:      addToCart,
 		VERIFY_EMAIL: verifyEmail,
 		SUBMIT_SHIPPING: submitShipping,
+		SUBMIT_BILLING: submitBilling,
+		SUBMIT_ORDER: submitOrder,
 	})
 }
