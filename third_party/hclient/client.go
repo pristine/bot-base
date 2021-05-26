@@ -61,7 +61,7 @@ func (c *Client) AddCookie(u *url.URL, cookie *http.Cookie) error {
 		return NoCookieJarErr
 	}
 
-	c.client.Jar.SetCookies(u, append(c.client.Jar.Cookies(u), cookie))
+	c.client.Jar.SetCookies(u, []*http.Cookie{cookie})
 
 	return nil
 }
