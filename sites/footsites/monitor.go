@@ -9,7 +9,7 @@ func waitForMonitor(t *task.Task) task.TaskState {
 
 	// data := <- t.MonitorData
 
-	// monitorData := data.(*footsitesMonitor.FootsitesMonitorData)
+	// monitorData := data.(*footsites.FootsitesMonitorData)
 
 	// handle data
 
