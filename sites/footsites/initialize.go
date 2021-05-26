@@ -6,6 +6,9 @@ import (
 	"github.com/EdwinJ0124/footsites/third_party/hclient"
 )
 
+// NOTE:
+// there are better ways to do it via a new task system, but this works too
+
 func initialize(t *task.Task) task.TaskState {
 	t.Internal = &footsites{}
 
