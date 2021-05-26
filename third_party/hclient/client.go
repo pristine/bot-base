@@ -77,7 +77,7 @@ func (c *Client) RemoveCookie(u *url.URL, cookie string) error {
 		Value: "",
 	}
 
-	c.client.Jar.SetCookies(u, append(c.client.Jar.Cookies(u), newCookie))
+	c.client.Jar.SetCookies(u, []*http.Cookie{newCookie})
 
 	return nil
 }
