@@ -1,6 +1,6 @@
 package footsites
 
-import "github.com/EdwinJ0124/footsites/internal/task"
+import "github.com/EdwinJ0124/bot-base/internal/task"
 
 var (
 	INITIALIZE task.TaskState = "initialize"

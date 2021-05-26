@@ -1,6 +1,6 @@
-# Footsites
+# Bot-Base
 
-Footsites is a small project with concepts for most elements of a bot.
+Bot-Base is a small project with concepts for most elements of a bot.
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

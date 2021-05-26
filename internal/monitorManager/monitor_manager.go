@@ -2,7 +2,7 @@ package monitorManager
 
 import (
 	"context"
-	"github.com/EdwinJ0124/footsites/internal/monitor"
+	"github.com/EdwinJ0124/bot-base/internal/monitor"
 	"time"
 )
 

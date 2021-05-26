@@ -1,4 +1,4 @@
-module github.com/EdwinJ0124/footsites
+module github.com/EdwinJ0124/bot-base
 
 go 1.16
 

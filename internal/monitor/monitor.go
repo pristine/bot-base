@@ -3,8 +3,8 @@ package monitor
 import (
 	"context"
 	"errors"
-	"github.com/EdwinJ0124/footsites/internal/task"
-	"github.com/EdwinJ0124/footsites/third_party/hclient"
+	"github.com/EdwinJ0124/bot-base/internal/task"
+	"github.com/EdwinJ0124/bot-base/third_party/hclient"
 	"github.com/lithammer/shortuuid"
 	"sync"
 )

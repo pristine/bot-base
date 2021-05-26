@@ -2,7 +2,7 @@ package footsites
 
 import (
 	"fmt"
-	"github.com/EdwinJ0124/footsites/internal/task"
+	"github.com/EdwinJ0124/bot-base/internal/task"
 )
 
 func getSession(t *task.Task) task.TaskState {

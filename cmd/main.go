@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/EdwinJ0124/footsites/monitors/footsitesMonitor"
-	"github.com/EdwinJ0124/footsites/sites/footsites"
+	"github.com/EdwinJ0124/bot-base/monitors/footsitesMonitor"
+	"github.com/EdwinJ0124/bot-base/sites/footsites"
 )
 
 func main() {

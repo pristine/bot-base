@@ -1,7 +1,7 @@
 package footsites
 
 import (
-	"github.com/EdwinJ0124/footsites/internal/task"
+	"github.com/EdwinJ0124/bot-base/internal/task"
 )
 
 func waitForMonitor(t *task.Task) task.TaskState {

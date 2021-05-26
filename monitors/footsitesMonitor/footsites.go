@@ -1,7 +1,7 @@
 package footsitesMonitor
 
 import (
-	"github.com/EdwinJ0124/footsites/internal/monitor"
+	"github.com/EdwinJ0124/bot-base/internal/monitor"
 )
 
 func Initialize() {
