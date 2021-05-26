@@ -9,16 +9,16 @@ func submitOrder(t *task.Task) task.TaskState {
 	internal := t.Internal.(*footsites)
 
 	requestBody := OrderRequest{
-		Cartid: "",
-		Deviceid: "",
-		Encryptedcardnumber: "",
-		Encryptedexpirymonth: "",
-		Encryptedexpiryyear: "",
+		Cartid:                "",
+		Deviceid:              "",
+		Encryptedcardnumber:   "",
+		Encryptedexpirymonth:  "",
+		Encryptedexpiryyear:   "",
 		Encryptedsecuritycode: "",
-		Paymentmethod: "CREDITCARD",
-		Preferredlanguage: "en",
-		Returnurl: fmt.Sprintf("https://%s/adyen/checkout", internal.Host),
-		Termsandcondition: false,
+		Paymentmethod:         "CREDITCARD",
+		Preferredlanguage:     "en",
+		Returnurl:             fmt.Sprintf("https://%s/adyen/checkout", internal.Host),
+		Termsandcondition:     false,
 	}
 
 	_, err := t.Client.NewRequest().

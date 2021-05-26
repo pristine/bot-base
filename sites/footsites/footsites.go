@@ -16,9 +16,9 @@ func Initialize() {
 		GET_SESSION:      getSession,
 		WAIT_FOR_MONITOR: waitForMonitor,
 		ADD_TO_CART:      addToCart,
-		VERIFY_EMAIL: verifyEmail,
-		SUBMIT_SHIPPING: submitShipping,
-		SUBMIT_BILLING: submitBilling,
-		SUBMIT_ORDER: submitOrder,
+		VERIFY_EMAIL:     verifyEmail,
+		SUBMIT_SHIPPING:  submitShipping,
+		SUBMIT_BILLING:   submitBilling,
+		SUBMIT_ORDER:     submitOrder,
 	})
 }

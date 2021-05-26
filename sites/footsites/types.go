@@ -26,44 +26,44 @@ type Region struct {
 }
 
 type ShippingAddress struct {
-	Setasdefaultbilling  bool   `json:"setAsDefaultBilling"`
-	Setasdefaultshipping bool   `json:"setAsDefaultShipping"`
-	Firstname            string `json:"firstName"`
-	Lastname             string `json:"lastName"`
-	Email                bool   `json:"email"`
-	Phone                string `json:"phone"`
-	Country              Country `json:"country"`
-	ID                interface{} `json:"id"`
-	Setasbilling      bool        `json:"setAsBilling"`
-	Saveinaddressbook bool        `json:"saveInAddressBook"`
-	Region          Region `json:"region"`
-	Type            string      `json:"type"`
-	Loqatesearch    string      `json:"LoqateSearch"`
-	Line1           string      `json:"line1"`
-	Line2           string      `json:"line2"`
-	Postalcode      string      `json:"postalCode"`
-	Town            string      `json:"town"`
-	Regionfpo       interface{} `json:"regionFPO"`
-	Shippingaddress bool        `json:"shippingAddress"`
-	Recordtype      string      `json:"recordType"`
-}
-
-type BillingRequest struct {
-	Setasdefaultbilling  bool   `json:"setAsDefaultBilling"`
-	Setasdefaultshipping bool   `json:"setAsDefaultShipping"`
-	Firstname            string `json:"firstName"`
-	Lastname             string `json:"lastName"`
-	Email                bool   `json:"email"`
-	Phone                string `json:"phone"`
-	Country              Country `json:"country"`
-	ID                interface{} `json:"id"`
-	Setasbilling      bool        `json:"setAsBilling"`
-	Saveinaddressbook bool        `json:"saveInAddressBook"`
-	Region            Region`json:"region"`
+	Setasdefaultbilling  bool        `json:"setAsDefaultBilling"`
+	Setasdefaultshipping bool        `json:"setAsDefaultShipping"`
+	Firstname            string      `json:"firstName"`
+	Lastname             string      `json:"lastName"`
+	Email                bool        `json:"email"`
+	Phone                string      `json:"phone"`
+	Country              Country     `json:"country"`
+	ID                   interface{} `json:"id"`
+	Setasbilling         bool        `json:"setAsBilling"`
+	Saveinaddressbook    bool        `json:"saveInAddressBook"`
+	Region               Region      `json:"region"`
 	Type                 string      `json:"type"`
 	Loqatesearch         string      `json:"LoqateSearch"`
 	Line1                string      `json:"line1"`
-	Line2	string	`json:"line2"`
+	Line2                string      `json:"line2"`
+	Postalcode           string      `json:"postalCode"`
+	Town                 string      `json:"town"`
+	Regionfpo            interface{} `json:"regionFPO"`
+	Shippingaddress      bool        `json:"shippingAddress"`
+	Recordtype           string      `json:"recordType"`
+}
+
+type BillingRequest struct {
+	Setasdefaultbilling  bool        `json:"setAsDefaultBilling"`
+	Setasdefaultshipping bool        `json:"setAsDefaultShipping"`
+	Firstname            string      `json:"firstName"`
+	Lastname             string      `json:"lastName"`
+	Email                bool        `json:"email"`
+	Phone                string      `json:"phone"`
+	Country              Country     `json:"country"`
+	ID                   interface{} `json:"id"`
+	Setasbilling         bool        `json:"setAsBilling"`
+	Saveinaddressbook    bool        `json:"saveInAddressBook"`
+	Region               Region      `json:"region"`
+	Type                 string      `json:"type"`
+	Loqatesearch         string      `json:"LoqateSearch"`
+	Line1                string      `json:"line1"`
+	Line2                string      `json:"line2"`
 	Postalcode           string      `json:"postalCode"`
 	Town                 string      `json:"town"`
 	Regionfpo            interface{} `json:"regionFPO"`
@@ -87,16 +87,16 @@ type BrowserInfo struct {
 }
 
 type OrderRequest struct {
-	Preferredlanguage     string `json:"preferredLanguage"`
-	Termsandcondition     bool   `json:"termsAndCondition"`
-	Deviceid              string `json:"deviceId"`
-	Cartid                string `json:"cartId"`
-	Encryptedcardnumber   string `json:"encryptedCardNumber"`
-	Encryptedexpirymonth  string `json:"encryptedExpiryMonth"`
-	Encryptedexpiryyear   string `json:"encryptedExpiryYear"`
-	Encryptedsecuritycode string `json:"encryptedSecurityCode"`
-	Paymentmethod         string `json:"paymentMethod"`
-	Returnurl             string `json:"returnUrl"`
+	Preferredlanguage     string      `json:"preferredLanguage"`
+	Termsandcondition     bool        `json:"termsAndCondition"`
+	Deviceid              string      `json:"deviceId"`
+	Cartid                string      `json:"cartId"`
+	Encryptedcardnumber   string      `json:"encryptedCardNumber"`
+	Encryptedexpirymonth  string      `json:"encryptedExpiryMonth"`
+	Encryptedexpiryyear   string      `json:"encryptedExpiryYear"`
+	Encryptedsecuritycode string      `json:"encryptedSecurityCode"`
+	Paymentmethod         string      `json:"paymentMethod"`
+	Returnurl             string      `json:"returnUrl"`
 	Browserinfo           BrowserInfo `json:"browserInfo"`
 }
 
@@ -108,5 +108,5 @@ type footsites struct {
 	VariantID string
 
 	ProfileRetrieved bool
-	Profile *profile.Profile
+	Profile          *profile.Profile
 }
