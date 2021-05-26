@@ -11,6 +11,6 @@ func Initialize() {
 
 	monitorType.AddHandlers(monitor.MonitorHandlerMap{
 		INITIALIZE: initialize,
-		GET_STOCK: getStock,
+		GET_STOCK:  getStock,
 	})
 }

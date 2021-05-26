@@ -7,15 +7,15 @@ import (
 )
 
 type ProfileGroup struct {
-	ID string `json:"id"`
-	Name string `json:"name"`
+	ID       string                 `json:"id"`
+	Name     string                 `json:"name"`
 	Profiles *orderedmap.OrderedMap `json:"profiles"` // ordered map to make sure our profile selection works
 }
 
 var (
-	ProfileGroupEmptyErr = errors.New("profile group does not contain any profiles")
+	ProfileGroupEmptyErr        = errors.New("profile group does not contain any profiles")
 	ProfileGroupDoesNotExistErr = errors.New("profile group does not exist")
-	profileGroups = make(map[string]*ProfileGroup)
+	profileGroups               = make(map[string]*ProfileGroup)
 )
 
 // DoesProfileGroupExist checks if a profile group exists
@@ -29,8 +29,8 @@ func CreateProfileGroup(name string) string {
 	id := shortuuid.New()
 
 	profileGroups[id] = &ProfileGroup{
-		Name: name,
-		ID: id,
+		Name:     name,
+		ID:       id,
 		Profiles: orderedmap.New(),
 	}
 

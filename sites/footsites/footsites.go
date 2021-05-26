@@ -12,8 +12,8 @@ func Initialize() {
 	taskType.SetFirstHandlerState(INITIALIZE)
 
 	taskType.AddHandlers(task.TaskHandlerMap{
-		INITIALIZE: initialize,
-		GET_SESSION: getSession,
+		INITIALIZE:       initialize,
+		GET_SESSION:      getSession,
 		WAIT_FOR_MONITOR: waitForMonitor,
 	})
 }

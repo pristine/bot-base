@@ -10,23 +10,23 @@ import (
 )
 
 type Monitor struct {
-	ID string 						  `json:"id"`
-	Params		   map[string]string  `json:"params"`
-	Type string						  `json:"type"`
-	Input string 					  `json:"input"`
-	ProxyListID    string             `json:"proxyListID"`
-	Internal       interface{}        `json:"-"`
-	Context        context.Context    `json:"-"`
-	Cancel         context.CancelFunc `json:"-"`
-	Client *hclient.Client 			  `json:"-"`
-	Active	bool					  `json:"-"`
+	ID          string             `json:"id"`
+	Params      map[string]string  `json:"params"`
+	Type        string             `json:"type"`
+	Input       string             `json:"input"`
+	ProxyListID string             `json:"proxyListID"`
+	Internal    interface{}        `json:"-"`
+	Context     context.Context    `json:"-"`
+	Cancel      context.CancelFunc `json:"-"`
+	Client      *hclient.Client    `json:"-"`
+	Active      bool               `json:"-"`
 }
 
-var(
+var (
 	monitorMutex = sync.RWMutex{}
 
 	MonitorNotInTaskGroupErr = errors.New("monitor not in any task group")
-	MonitorDoesNotExistErr = errors.New("monitor does not exist")
+	MonitorDoesNotExistErr   = errors.New("monitor does not exist")
 
 	monitors = make(map[string]*Monitor)
 )
@@ -46,7 +46,7 @@ func CreateMonitor(input string) string {
 	id := shortuuid.New()
 
 	monitors[id] = &Monitor{
-		ID: id,
+		ID:    id,
 		Input: input,
 	}
 

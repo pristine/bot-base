@@ -8,17 +8,17 @@ import (
 )
 
 type ProxyGroup struct {
-	ID string `json:"id"`
-	Name string `json:"name"`
+	ID      string                 `json:"id"`
+	Name    string                 `json:"name"`
 	Proxies *orderedmap.OrderedMap `json:"proxies"`
 }
 
 var (
 	proxyGroupMutex = sync.RWMutex{}
 
-	ProxyGroupEmptyErr = errors.New("proxy group does not contain any proxies")
+	ProxyGroupEmptyErr        = errors.New("proxy group does not contain any proxies")
 	ProxyGroupDoesNotExistErr = errors.New("proxy group does not exist")
-	proxyGroups = make(map[string]*ProxyGroup)
+	proxyGroups               = make(map[string]*ProxyGroup)
 )
 
 // DoesProxyGroupExist checks if a proxy group exists
@@ -36,8 +36,8 @@ func CreateProxyGroup(name string) string {
 	id := shortuuid.New()
 
 	proxyGroups[id] = &ProxyGroup{
-		ID: id,
-		Name: name,
+		ID:      id,
+		Name:    name,
 		Proxies: orderedmap.New(),
 	}
 
@@ -80,7 +80,7 @@ func GetProxyFromProxyGroup(id string) (*Proxy, error) {
 	proxy, err := GetProxy(firstProxyId)
 
 	if err != nil {
-		return &Proxy{},err
+		return &Proxy{}, err
 	}
 
 	// remove proxy from list

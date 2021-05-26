@@ -7,10 +7,10 @@ import (
 )
 
 type TaskGroup struct {
-	ID string `json:"id"`
-	Name string `json:"name"`
+	ID       string          `json:"id"`
+	Name     string          `json:"name"`
 	Monitors map[string]bool `json:"monitorId"`
-	Tasks map[string]bool `json:"tasks"`
+	Tasks    map[string]bool `json:"tasks"`
 }
 
 var (
@@ -36,8 +36,8 @@ func CreateTaskGroup(name string) string {
 	id := shortuuid.New()
 
 	taskGroups[id] = &TaskGroup{
-		Name: name,
-		ID: id,
+		Name:  name,
+		ID:    id,
 		Tasks: make(map[string]bool),
 	}
 

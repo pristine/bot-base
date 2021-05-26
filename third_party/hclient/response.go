@@ -10,7 +10,7 @@ type Response struct {
 
 	body []byte
 
-	status string
+	status     string
 	statusCode int
 }
 

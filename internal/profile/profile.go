@@ -45,8 +45,8 @@ type Profile struct {
 
 var (
 	ProfileDoesNotExistErr = errors.New("profile does not exist")
-	ProfileNotAssignedErr = errors.New("profile not assigned")
-	profiles = make(map[string]*Profile)
+	ProfileNotAssignedErr  = errors.New("profile not assigned")
+	profiles               = make(map[string]*Profile)
 )
 
 // DoesProfileExist checks if a profile exists

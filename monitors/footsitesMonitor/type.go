@@ -5,5 +5,4 @@ type footsites struct {
 }
 
 type FootsitesMonitorData struct {
-
 }

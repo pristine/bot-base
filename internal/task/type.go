@@ -6,18 +6,18 @@ import (
 )
 
 type TaskState string
-type TaskHandlerMap map[TaskState]func(*Task)TaskState
+type TaskHandlerMap map[TaskState]func(*Task) TaskState
 
 type TaskType struct {
 	firstHandlerState TaskState
-	handlers *orderedmap.OrderedMap
+	handlers          *orderedmap.OrderedMap
 }
 
 var (
-	DoneTaskState TaskState = "done"
+	DoneTaskState  TaskState = "done"
 	ErrorTaskState TaskState = "error"
 
-	TaskTypeDoesNotExistErr = errors.New("task type does not exist")
+	TaskTypeDoesNotExistErr    = errors.New("task type does not exist")
 	TaskHandlerDoesNotExistErr = errors.New("task handler does not exist")
 
 	taskTypes = make(map[string]*TaskType)
@@ -52,7 +52,7 @@ func (t *TaskType) HasHandlers() bool {
 }
 
 // AddHandler adds a handler to the task type
-func (t *TaskType) AddHandler(handlerName TaskState, handler func(*Task)TaskState) {
+func (t *TaskType) AddHandler(handlerName TaskState, handler func(*Task) TaskState) {
 	t.handlers.Set(string(handlerName), handler)
 }
 
@@ -64,14 +64,14 @@ func (t *TaskType) AddHandlers(handlers TaskHandlerMap) {
 }
 
 // GetHandler gets a handler by handler name
-func (t *TaskType) GetHandler(handlerName TaskState) (func(*Task)TaskState, error) {
+func (t *TaskType) GetHandler(handlerName TaskState) (func(*Task) TaskState, error) {
 	handler, ok := t.handlers.Get(string(handlerName))
 
 	if !ok {
 		return nil, TaskHandlerDoesNotExistErr
 	}
 
-	return handler.(func(*Task)TaskState), nil
+	return handler.(func(*Task) TaskState), nil
 }
 
 // GetFirstHandlerState gets the first handler state

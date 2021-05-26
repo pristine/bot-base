@@ -58,7 +58,7 @@ func RunTask(t *task.Task) {
 	for {
 		nextState = handleTaskState(nextState, taskType, t)
 
-		if nextState == task.DoneTaskState || t.Context.Err() != nil  {
+		if nextState == task.DoneTaskState || t.Context.Err() != nil {
 			// you can report that the task stopped here
 			t.Active = false
 			break

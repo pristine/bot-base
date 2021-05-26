@@ -16,7 +16,7 @@ var (
 	proxyMutex = sync.RWMutex{}
 
 	ProxyDoesNotExistErr = errors.New("proxy does not exist")
-	proxies = make(map[string]*Proxy)
+	proxies              = make(map[string]*Proxy)
 )
 
 // DoesProxyExist checks if a proxy exists

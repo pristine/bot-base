@@ -14,16 +14,16 @@ import (
 
 type Task struct {
 	ID             string             `json:"id"`
-	Params		   map[string]string  `json:"params"`
+	Params         map[string]string  `json:"params"`
 	Type           string             `json:"type"`
 	ProfileGroupID string             `json:"profileGroupID"`
 	ProxyListID    string             `json:"proxyListID"`
 	Context        context.Context    `json:"-"`
 	Cancel         context.CancelFunc `json:"-"`
 	Internal       interface{}        `json:"-"`
-	Client		   *hclient.Client    `json:"-"`
+	Client         *hclient.Client    `json:"-"`
 	Active         bool               `json:"-"`
-	MonitorData	   chan interface{}	  `json:"-"`
+	MonitorData    chan interface{}   `json:"-"`
 }
 
 var (
@@ -50,7 +50,7 @@ func CreateTask(taskType string, params map[string]string) string {
 	id := shortuuid.New()
 
 	tasks[id] = &Task{
-		Type: taskType,
+		Type:   taskType,
 		Params: params,
 	}
 

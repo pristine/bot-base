@@ -6,18 +6,18 @@ import (
 )
 
 type MonitorState string
-type MonitorHandlerMap map[MonitorState]func(*Monitor)MonitorState
+type MonitorHandlerMap map[MonitorState]func(*Monitor) MonitorState
 
 type MonitorType struct {
 	firstHandlerState MonitorState
-	handlers *orderedmap.OrderedMap
+	handlers          *orderedmap.OrderedMap
 }
 
 var (
-	DoneMonitorState MonitorState = "done"
+	DoneMonitorState  MonitorState = "done"
 	ErrorMonitorState MonitorState = "error"
 
-	MonitorTypeDoesNotExistErr = errors.New("monitor type does not exist")
+	MonitorTypeDoesNotExistErr    = errors.New("monitor type does not exist")
 	MonitorHandlerDoesNotExistErr = errors.New("monitor handler does not exist")
 
 	monitorTypes = make(map[string]*MonitorType)
@@ -53,7 +53,7 @@ func (t *MonitorType) HasHandlers() bool {
 }
 
 // AddHandler adds a handler to the monitor type
-func (t *MonitorType) AddHandler(handlerName MonitorState, handler func(*Monitor)MonitorState) {
+func (t *MonitorType) AddHandler(handlerName MonitorState, handler func(*Monitor) MonitorState) {
 	t.handlers.Set(string(handlerName), handler)
 }
 
@@ -65,14 +65,14 @@ func (t *MonitorType) AddHandlers(handlers MonitorHandlerMap) {
 }
 
 // GetHandler gets a handler by handler name
-func (t *MonitorType) GetHandler(handlerName MonitorState) (func(*Monitor)MonitorState, error) {
+func (t *MonitorType) GetHandler(handlerName MonitorState) (func(*Monitor) MonitorState, error) {
 	handler, ok := t.handlers.Get(string(handlerName))
 
 	if !ok {
 		return nil, MonitorHandlerDoesNotExistErr
 	}
 
-	return handler.(func(*Monitor)MonitorState), nil
+	return handler.(func(*Monitor) MonitorState), nil
 }
 
 // GetFirstHandlerState gets the first handler state

@@ -6,7 +6,6 @@ func getStock(m *monitor.Monitor) monitor.MonitorState {
 
 	// send a request to
 
-
 	return HandleStockResponse(m)
 }
 

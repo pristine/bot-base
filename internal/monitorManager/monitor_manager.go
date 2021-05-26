@@ -58,7 +58,7 @@ func RunMonitor(m *monitor.Monitor) {
 	for {
 		nextState = handleMonitorState(nextState, monitorType, m)
 
-		if nextState == monitor.DoneMonitorState || m.Context.Err() != nil  {
+		if nextState == monitor.DoneMonitorState || m.Context.Err() != nil {
 			// you can report that the monitor stopped here
 			m.Active = false
 			break

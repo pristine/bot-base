@@ -20,7 +20,7 @@ type Client struct {
 
 // NewClient creates a new http client
 // Takes in the optional arguments: proxy, servername
-func NewClient( parameters ...string) (*Client, error) {
+func NewClient(parameters ...string) (*Client, error) {
 	tlsClientConfig := &tls.Config{
 		InsecureSkipVerify: true,
 	}
@@ -33,7 +33,7 @@ func NewClient( parameters ...string) (*Client, error) {
 
 	transport := &http.Transport{
 		ForceAttemptHTTP2: true,
-		TLSClientConfig: tlsClientConfig,
+		TLSClientConfig:   tlsClientConfig,
 	}
 
 	if len(parameters) > 0 && len(parameters[0]) > 0 {
@@ -73,7 +73,7 @@ func (c *Client) RemoveCookie(u *url.URL, cookie string) error {
 	}
 
 	newCookie := &http.Cookie{
-		Name: cookie,
+		Name:  cookie,
 		Value: "",
 	}
 
@@ -97,9 +97,9 @@ func (c *Client) Do(r *http.Request) (*Response, error) {
 
 	r.Close = true
 
-	response :=  &Response{
-		headers: resp.Header,
-		body: body,
+	response := &Response{
+		headers:    resp.Header,
+		body:       body,
 		status:     resp.Status,
 		statusCode: resp.StatusCode,
 	}

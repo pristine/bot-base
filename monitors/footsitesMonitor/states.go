@@ -6,5 +6,5 @@ import (
 
 var (
 	INITIALIZE monitor.MonitorState = "initialize"
-	GET_STOCK monitor.MonitorState = "get_stock"
+	GET_STOCK  monitor.MonitorState = "get_stock"
 )
