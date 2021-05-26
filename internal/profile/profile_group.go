@@ -6,12 +6,6 @@ import (
 	"github.com/lithammer/shortuuid"
 )
 
-type ProfileGroup struct {
-	ID       string                 `json:"id"`
-	Name     string                 `json:"name"`
-	Profiles *orderedmap.OrderedMap `json:"profiles"` // ordered map to make sure our profile selection works
-}
-
 var (
 	ProfileGroupEmptyErr        = errors.New("profile group does not contain any profiles")
 	ProfileGroupDoesNotExistErr = errors.New("profile group does not exist")
