@@ -13,7 +13,7 @@ func submitShipping(t *task.Task) task.TaskState {
 	requestBody := ShippingRequest{
 		Shippingaddress: ShippingAddress{
 			Loqatesearch: "",
-			Country: ShippingCountry{
+			Country: Country{
 				Isocode: utils.CountryToISO[internal.Profile.ShippingAddress.Country],
 				Name: internal.Profile.ShippingAddress.Country,
 			},
@@ -26,7 +26,7 @@ func submitShipping(t *task.Task) task.TaskState {
 			Phone: internal.Profile.ShippingAddress.Phone,
 			Postalcode: internal.Profile.ShippingAddress.Postcode,
 			Recordtype: "S",
-			Region: ShippingRegion{
+			Region: Region{
 				Countryiso: utils.CountryToISO[internal.Profile.ShippingAddress.Country],
 				Isocode: fmt.Sprintf("%s:%s", utils.CountryToISO[internal.Profile.ShippingAddress.Country], utils.StateToISO[internal.Profile.ShippingAddress.State]),
 				Isocodeshort: utils.StateToISO[internal.Profile.ShippingAddress.State],
@@ -68,5 +68,5 @@ func handleSubmitShippingResponse(t *task.Task) task.TaskState {
 		return SUBMIT_SHIPPING
 	}
 
-	return task.DoneTaskState
+	return SUBMIT_BILLING
 }

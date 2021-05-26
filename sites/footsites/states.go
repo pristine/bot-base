@@ -9,4 +9,5 @@ var (
 	ADD_TO_CART      task.TaskState = "add_to_cart"
 	VERIFY_EMAIL task.TaskState = "verify_email"
 	SUBMIT_SHIPPING task.TaskState = "submit_shipping"
+	SUBMIT_BILLING task.TaskState = "submit_billing"
 )
