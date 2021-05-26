@@ -30,7 +30,7 @@ func (r *Response) BodyAsString() string {
 }
 
 // BodyAsJSON unmarshalls the current response body to the specified data structure
-func (r *Response) BodyAsJSON(data *interface{}) error {
+func (r *Response) BodyAsJSON(data interface{}) error {
 	return json.Unmarshal(r.body, data)
 }
 

@@ -1,5 +1,8 @@
 package task
 
+// NOTE:
+// there is a better way to handle tasks with interfaces
+
 import (
 	"context"
 	"errors"
@@ -11,7 +14,7 @@ import (
 
 type Task struct {
 	ID             string             `json:"id"`
-	Params		   map[string]string   `json:"params"`
+	Params		   map[string]string  `json:"params"`
 	Type           string             `json:"type"`
 	ProfileGroupID string             `json:"profileGroupID"`
 	ProxyListID    string             `json:"proxyListID"`
@@ -20,7 +23,7 @@ type Task struct {
 	Internal       interface{}        `json:"-"`
 	Client		   *hclient.Client    `json:"-"`
 	Active         bool               `json:"-"`
-	MonitorData	   interface{}		  `json:"-"`
+	MonitorData	   chan interface{}	  `json:"-"`
 }
 
 var (

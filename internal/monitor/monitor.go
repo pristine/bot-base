@@ -11,6 +11,7 @@ import (
 
 type Monitor struct {
 	ID string 						  `json:"id"`
+	Params		   map[string]string  `json:"params"`
 	Type string						  `json:"type"`
 	Input string 					  `json:"input"`
 	ProxyListID    string             `json:"proxyListID"`
@@ -98,11 +99,7 @@ func AssignMonitorToTaskGroup(monitorId, taskGroupId string) error {
 }
 
 // NotifyTasks notifies tasks
-func (m *Monitor) NotifyTasks(id string, monitorData interface{}) error {
-	if !DoesMonitorExist(id) {
-		return MonitorDoesNotExistErr
-	}
-
+func (m *Monitor) NotifyTasks(monitorData interface{}) error {
 	associatedTaskGroup, err := m.GetAssociatedTaskGroup()
 
 	if err != nil {
@@ -114,7 +111,7 @@ func (m *Monitor) NotifyTasks(id string, monitorData interface{}) error {
 	for _, id := range taskIds {
 		task, _ := task.GetTask(id)
 
-		task.MonitorData = monitorData
+		task.MonitorData <- monitorData
 	}
 
 	return nil

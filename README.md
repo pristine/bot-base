@@ -1,6 +1,6 @@
 # Footsites
 
-Footsites is a small project I created to help people get started with making bots, specifically with Golang. Included is a footsites module and a base for furthering what is included.
+Footsites is a small project with concepts for most elements of a bot.
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

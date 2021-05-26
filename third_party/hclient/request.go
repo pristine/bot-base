@@ -24,14 +24,14 @@ func newRequest(c *Client) *Request {
 	}
 }
 
-// Url sets the url of the request
-func (r *Request) Url(url string) *Request {
+// SetURL sets the url of the request
+func (r *Request) SetURL(url string) *Request {
 	r.url = url
 	return r
 }
 
-// Method sets the method of the request
-func (r *Request) Method(method string) *Request {
+// SetMethod sets the method of the request
+func (r *Request) SetMethod(method string) *Request {
 	r.method = method
 	return r
 }
@@ -62,8 +62,8 @@ func (r *Request) SetHost(value string) *Request {
 	return r
 }
 
-// Send will send the request with all specified request values
-func (r *Request) Send() (*Response, error) {
+// Do will send the request with all specified request values
+func (r *Request) Do() (*Response, error) {
 	req, err := http.NewRequest(r.method, r.url, r.body)
 	if err != nil {
 		return nil, err

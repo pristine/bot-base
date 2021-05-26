@@ -15,7 +15,7 @@ var (
 type Client struct {
 	client *http.Client
 
-	LastResponse *Response
+	LatestResponse *Response
 }
 
 // NewClient creates a new http client
@@ -46,7 +46,7 @@ func NewClient( parameters ...string) (*Client, error) {
 		client: &http.Client{
 			Transport: transport,
 		},
-		LastResponse: &Response{},
+		LatestResponse: &Response{},
 	}, nil
 }
 
@@ -104,7 +104,7 @@ func (c *Client) Do(r *http.Request) (*Response, error) {
 		statusCode: resp.StatusCode,
 	}
 
-	c.LastResponse = response
+	c.LatestResponse = response
 
 	return response, nil
 }
