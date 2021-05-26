@@ -1,4 +1,4 @@
-package taskManager
+package taskmngr
 
 import (
 	"context"

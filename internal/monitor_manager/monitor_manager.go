@@ -1,4 +1,4 @@
-package monitorManager
+package monitormngr
 
 import (
 	"context"

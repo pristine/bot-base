@@ -1,4 +1,4 @@
-package footsitesMonitor
+package footsitesmntr
 
 import (
 	"github.com/EdwinJ0124/bot-base/internal/monitor"

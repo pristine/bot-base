@@ -1,4 +1,4 @@
-package footsitesMonitor
+package footsitesmntr
 
 type footsites struct {
 	Host string
