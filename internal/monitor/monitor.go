@@ -67,8 +67,8 @@ func GetMonitor(id string) (*Monitor, error) {
 	return monitors[id], nil
 }
 
-// AssignMonitorToTaskGroup assigns a task group to a monitor
-func AssignMonitorToTaskGroup(monitorId, taskGroupId string) error {
+// SetMonitorToTaskGroup sets a task group to a monitor
+func SetMonitorToTaskGroup(monitorId, taskGroupId string) error {
 	if !DoesMonitorExist(monitorId) {
 		return MonitorDoesNotExistErr
 	}
@@ -85,7 +85,7 @@ func AssignMonitorToTaskGroup(monitorId, taskGroupId string) error {
 
 // NotifyTasks notifies tasks
 func (m *Monitor) NotifyTasks(monitorData interface{}) error {
-	associatedTaskGroup, err := m.GetAssociatedTaskGroup()
+	associatedTaskGroup, err := m.getAssociatedTaskGroup()
 
 	if err != nil {
 		return err
@@ -102,7 +102,7 @@ func (m *Monitor) NotifyTasks(monitorData interface{}) error {
 	return nil
 }
 
-func (m *Monitor) GetAssociatedTaskGroup() (*task.TaskGroup, error) {
+func (m *Monitor) getAssociatedTaskGroup() (*task.TaskGroup, error) {
 	taskGroupIds := task.GetAllTaskGroupIDs()
 
 	for _, taskGroupId := range taskGroupIds {
