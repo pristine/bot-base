@@ -5,9 +5,7 @@ import (
 	"github.com/EdwinJ0124/bot-base/internal/task"
 )
 
-func submitOrder(t *task.Task) task.TaskState {
-	internal := t.Internal.(*footsites)
-
+func submitOrder(t *task.Task, internal *FootsitesInternal) task.TaskState {
 	requestBody := OrderRequest{
 		Cartid:                "",
 		Deviceid:              "",

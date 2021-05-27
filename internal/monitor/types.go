@@ -3,7 +3,7 @@ package monitor
 import (
 	"context"
 	"github.com/EdwinJ0124/bot-base/third_party/hclient"
-	"github.com/iancoleman/orderedmap"
+	"reflect"
 )
 
 type Monitor struct {
@@ -21,5 +21,10 @@ type Monitor struct {
 
 type MonitorType struct {
 	firstHandlerState MonitorState
-	handlers          *orderedmap.OrderedMap
+	internalType reflect.Type
+	handlers  MonitorReflectMap
 }
+
+type MonitorState string
+type MonitorHandlerMap map[MonitorState]interface{}
+type MonitorReflectMap map[string]reflect.Value

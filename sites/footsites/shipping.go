@@ -7,9 +7,7 @@ import (
 	"strings"
 )
 
-func submitShipping(t *task.Task) task.TaskState {
-	internal := t.Internal.(*footsites)
-
+func submitShipping(t *task.Task, internal *FootsitesInternal) task.TaskState {
 	requestBody := ShippingRequest{
 		Shippingaddress: ShippingAddress{
 			Loqatesearch: "",

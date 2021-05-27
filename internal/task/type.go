@@ -51,6 +51,8 @@ func (t *TaskType) AddHandlers(handlers TaskHandlerMap) {
 	for handlerName, handler := range handlers {
 		if t.internalType == nil {
 			handleTypes := reflect.TypeOf(handler)
+			// func (t *task.Task, internal *SiteInternal) task.TaskState
+
 			// we want the second one because the first one (0 index) will be task.Task type
 			handleType := handleTypes.In(1)
 

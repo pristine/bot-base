@@ -2,11 +2,8 @@ package monitor
 
 import (
 	"errors"
-	"github.com/iancoleman/orderedmap"
+	"reflect"
 )
-
-type MonitorState string
-type MonitorHandlerMap map[MonitorState]func(*Monitor) MonitorState
 
 var (
 	DoneMonitorState  MonitorState = "done"
@@ -21,7 +18,7 @@ var (
 // RegisterMonitorType register monitor type
 func RegisterMonitorType(monitorType string) *MonitorType {
 	monitorTypes[monitorType] = &MonitorType{
-		handlers: orderedmap.New(),
+		handlers: make(MonitorReflectMap),
 	}
 
 	return monitorTypes[monitorType]
@@ -43,31 +40,39 @@ func GetMonitorType(monitorType string) (*MonitorType, error) {
 
 // HasHandlers check if there are handlers
 func (t *MonitorType) HasHandlers() bool {
-	handlerIds := t.handlers.Keys()
-	return len(handlerIds) > 0
+	return len(t.handlers) > 0
 }
 
-// AddHandler adds a handler to the monitor type
-func (t *MonitorType) AddHandler(handlerName MonitorState, handler func(*Monitor) MonitorState) {
-	t.handlers.Set(string(handlerName), handler)
+func (t *MonitorType) addHandler(handlerName MonitorState, handler interface{}) {
+	t.handlers[string(handlerName)] = reflect.ValueOf(handler)
 }
 
 // AddHandlers adds multiple handles to a monitor type
 func (t *MonitorType) AddHandlers(handlers MonitorHandlerMap) {
 	for handlerName, handler := range handlers {
-		t.AddHandler(handlerName, handler)
+		if t.internalType == nil {
+			handleTypes := reflect.TypeOf(handler)
+			// func (t *task.Task, internal *SiteInternal) task.TaskState
+
+			// we want the second one because the first one (0 index) will be task.Task type
+			handleType := handleTypes.In(1)
+
+			t.internalType = handleType
+		}
+
+		t.addHandler(handlerName, handler)
 	}
 }
 
 // GetHandler gets a handler by handler name
-func (t *MonitorType) GetHandler(handlerName MonitorState) (func(*Monitor) MonitorState, error) {
-	handler, ok := t.handlers.Get(string(handlerName))
+func (t *MonitorType) GetHandler(handlerName MonitorState) (reflect.Value, error) {
+	handler, ok := t.handlers[string(handlerName)]
 
 	if !ok {
-		return nil, MonitorHandlerDoesNotExistErr
+		return reflect.Value{}, MonitorHandlerDoesNotExistErr
 	}
 
-	return handler.(func(*Monitor) MonitorState), nil
+	return handler, nil
 }
 
 // GetFirstHandlerState gets the first handler state
@@ -75,6 +80,12 @@ func (t *MonitorType) GetFirstHandlerState() MonitorState {
 	return t.firstHandlerState
 }
 
+// SetFirstHandlerState sets the first handler state
 func (t *MonitorType) SetFirstHandlerState(firstHandlerState MonitorState) {
 	t.firstHandlerState = firstHandlerState
+}
+
+// GetInternalType gets the internal type
+func (t *MonitorType) GetInternalType() reflect.Type {
+	return t.internalType
 }

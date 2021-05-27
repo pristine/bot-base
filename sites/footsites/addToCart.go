@@ -5,9 +5,7 @@ import (
 	"github.com/EdwinJ0124/bot-base/internal/task"
 )
 
-func addToCart(t *task.Task) task.TaskState {
-	internal := t.Internal.(*footsites)
-
+func addToCart(t *task.Task, internal *FootsitesInternal) task.TaskState {
 	requestBody := AddToCartRequest{
 		ProductQuantity: 1,
 		ProductID:       internal.VariantID,

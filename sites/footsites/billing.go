@@ -7,9 +7,7 @@ import (
 	"strings"
 )
 
-func submitBilling(t *task.Task) task.TaskState {
-	internal := t.Internal.(*footsites)
-
+func submitBilling(t *task.Task, internal *FootsitesInternal) task.TaskState {
 	requestBody := BillingRequest{
 		Loqatesearch: "",
 		Country: Country{

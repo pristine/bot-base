@@ -15,7 +15,6 @@ func handleTaskState(taskState task.TaskState, taskType *task.TaskType, t *task.
 	}
 
 	// func (t *task.Task, internal *SiteInternal) task.TaskState
-
 	nextNextTaskType := nextTaskHandler.Call([]reflect.Value{reflect.ValueOf(t), reflect.ValueOf(t.Internal)})
 
 	return task.TaskState(nextNextTaskType[0].String())

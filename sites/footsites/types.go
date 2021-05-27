@@ -100,7 +100,7 @@ type OrderRequest struct {
 	Browserinfo           BrowserInfo `json:"browserInfo"`
 }
 
-type footsites struct {
+type FootsitesInternal struct {
 	// internal things
 	Host string
 

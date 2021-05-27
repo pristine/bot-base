@@ -6,9 +6,7 @@ import (
 	"github.com/EdwinJ0124/bot-base/internal/task"
 )
 
-func verifyEmail(t *task.Task) task.TaskState {
-	internal := t.Internal.(*footsites)
-
+func verifyEmail(t *task.Task, internal *FootsitesInternal) task.TaskState {
 	// get profile data
 	if !internal.ProfileRetrieved {
 

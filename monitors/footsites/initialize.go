@@ -2,12 +2,7 @@ package footsitesmntr
 
 import "github.com/EdwinJ0124/bot-base/internal/monitor"
 
-func initialize(m *monitor.Monitor) monitor.MonitorState {
-
-	m.Internal = &footsites{}
-
-	internal := m.Internal.(*footsites)
-
+func initialize(m *monitor.Monitor, internal *FootsitesMonitorInternal) monitor.MonitorState {
 	switch m.Params["site"] {
 	case "footlocker":
 		internal.Host = "www.footlocker.com"

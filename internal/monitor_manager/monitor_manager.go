@@ -3,6 +3,7 @@ package monitormngr
 import (
 	"context"
 	"github.com/EdwinJ0124/bot-base/internal/monitor"
+	"reflect"
 	"time"
 )
 
@@ -13,9 +14,11 @@ func handleMonitorState(monitorState monitor.MonitorState, monitorType *monitor.
 		return monitor.ErrorMonitorState
 	}
 
-	nextNextType := nextHandler(t)
+	// func (m *monitor.Monitor, internal *MonitorInternal) monitor.MonitorState
+	nextNextTaskType := nextHandler.Call([]reflect.Value{reflect.ValueOf(t), reflect.ValueOf(t.Internal)})
 
-	return nextNextType
+	// monitor.MonitorState
+	return monitor.MonitorState(nextNextTaskType[0].String())
 }
 
 // RunMonitor starts a monitor task
@@ -53,6 +56,8 @@ func RunMonitor(m *monitor.Monitor) {
 		m.Active = false
 		return
 	}
+
+	m.Internal = reflect.New(monitorType.GetInternalType().Elem()).Interface()
 
 	// loop the moniitor states
 	for {

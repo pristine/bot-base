@@ -1,8 +1,7 @@
 package footsitesmntr
 
-type footsites struct {
+type FootsitesMonitorInternal struct {
 	Host string
 }
-
 type FootsitesMonitorData struct {
 }
