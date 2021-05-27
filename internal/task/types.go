@@ -8,8 +8,8 @@ import (
 
 type Task struct {
 	ID             string             `json:"id"`
-	Params         map[string]string  `json:"params"`
 	Type           string             `json:"type"`
+	Site           string             `json:"site"`
 	ProfileGroupID string             `json:"profileGroupID"`
 	ProxyListID    string             `json:"proxyListID"`
 	Context        context.Context    `json:"-"`
@@ -29,8 +29,8 @@ type TaskGroup struct {
 
 type TaskType struct {
 	firstHandlerState TaskState
-	internalType reflect.Type
-	handlers  TaskReflectMap
+	internalType      reflect.Type
+	handlers          TaskReflectMap
 }
 
 type TaskState string

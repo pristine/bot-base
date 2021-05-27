@@ -10,7 +10,7 @@ import (
 // there are better ways to do it via a new task system, but this works too
 
 func initialize(t *task.Task, internal *FootsitesInternal) task.TaskState {
-	switch t.Params["site"] {
+	switch t.Site {
 	case "footlocker":
 		internal.Host = "www.footlocker.com"
 	case "footaction":

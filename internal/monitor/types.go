@@ -21,8 +21,8 @@ type Monitor struct {
 
 type MonitorType struct {
 	firstHandlerState MonitorState
-	internalType reflect.Type
-	handlers  MonitorReflectMap
+	internalType      reflect.Type
+	handlers          MonitorReflectMap
 }
 
 type MonitorState string

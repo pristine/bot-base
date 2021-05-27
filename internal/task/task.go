@@ -27,15 +27,14 @@ func DoesTaskExist(id string) bool {
 }
 
 // CreateTask creates a task
-func CreateTask(taskType string, params map[string]string) string {
+func CreateTask(taskType string, site string) string {
 	taskMutex.Lock()
 	defer taskMutex.Unlock()
 
 	id := shortuuid.New()
 
 	tasks[id] = &Task{
-		Type:   taskType,
-		Params: params,
+		Type: taskType,
 	}
 
 	return id
