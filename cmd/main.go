@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	footsitesMonitor.Initialize()
+	footsitesmntr.Initialize()
 	footsites.Initialize()
 }
