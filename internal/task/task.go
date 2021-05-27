@@ -71,8 +71,8 @@ func GetTask(id string) (*Task, error) {
 	return tasks[id], nil
 }
 
-// AssignProfileGroupToTask assigns a profile group to a task
-func AssignProfileGroupToTask(taskId, profileGroupId string) error {
+// SetProfileGroupToTask sets a profile group to a task
+func SetProfileGroupToTask(taskId, profileGroupId string) error {
 	if !DoesTaskExist(taskId) {
 		return TaskDoesNotExistErr
 	}
@@ -91,8 +91,8 @@ func AssignProfileGroupToTask(taskId, profileGroupId string) error {
 	return nil
 }
 
-// AssignTaskToTaskGroup assigns a task to a task group
-func AssignTaskToTaskGroup(taskId, taskGroupId string) error {
+// SetTaskToTaskGroup sets a task to a task group
+func SetTaskToTaskGroup(taskId, taskGroupId string) error {
 	if !DoesTaskExist(taskId) {
 		return TaskDoesNotExistErr
 	}

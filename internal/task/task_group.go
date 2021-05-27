@@ -22,6 +22,7 @@ func DoesTaskGroupExist(id string) bool {
 	return ok
 }
 
+
 // CreateTaskGroup creates a new task group
 func CreateTaskGroup(name string) string {
 	taskGroupMutex.Lock()

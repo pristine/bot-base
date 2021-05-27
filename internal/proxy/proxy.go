@@ -73,8 +73,8 @@ func GetProxy(id string) (*Proxy, error) {
 	return proxies[id], nil
 }
 
-// AssignProxyToProxyGroup assigns a proxy to a proxy group
-func AssignProxyToProxyGroup(proxyId, proxyGroupId string) error {
+// SetProxyToProxyGroup sets a proxy to a proxy group
+func SetProxyToProxyGroup(proxyId, proxyGroupId string) error {
 	if !DoesProxyExist(proxyId) {
 		return ProxyDoesNotExistErr
 	}

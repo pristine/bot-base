@@ -57,8 +57,8 @@ func GetAllProfileIDs() []string {
 	return ids
 }
 
-// AssignProfileToProfileGroup assigns a profile to a profile group
-func AssignProfileToProfileGroup(profileId, profileGroupId string) error {
+// SetProfileToProfileGroup sets a profile to a profile group
+func SetProfileToProfileGroup(profileId, profileGroupId string) error {
 	if !DoesProfileExist(profileId) {
 		return ProfileDoesNotExistErr
 	}
