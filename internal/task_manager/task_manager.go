@@ -57,7 +57,7 @@ func RunTask(t *task.Task) {
 		return
 	}
 
-	t.Internal = reflect.New(taskType.GetInternalType()).Interface()
+	t.Internal = reflect.New(taskType.GetInternalType().Elem()).Interface()
 
 	// loop the task states
 	for {
