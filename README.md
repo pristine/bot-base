@@ -9,6 +9,7 @@ Please make sure to update tests as appropriate.
 
 ## Todo
 - Add tests
+- Better monitor notifications
 
 ## License
 [MIT](https://github.com/EdwinJ0124/footsites/blob/master/LICENSE.md)
