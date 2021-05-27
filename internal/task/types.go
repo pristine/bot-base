@@ -3,7 +3,7 @@ package task
 import (
 	"context"
 	"github.com/EdwinJ0124/bot-base/third_party/hclient"
-	"github.com/iancoleman/orderedmap"
+	"reflect"
 )
 
 type Task struct {
@@ -29,5 +29,10 @@ type TaskGroup struct {
 
 type TaskType struct {
 	firstHandlerState TaskState
-	handlers          *orderedmap.OrderedMap
+	internalType reflect.Type
+	handlers  TaskReflectMap
 }
+
+type TaskState string
+type TaskHandlerMap map[TaskState]interface{}
+type TaskReflectMap map[string]reflect.Value

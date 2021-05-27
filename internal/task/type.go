@@ -2,11 +2,8 @@ package task
 
 import (
 	"errors"
-	"github.com/iancoleman/orderedmap"
+	"reflect"
 )
-
-type TaskState string
-type TaskHandlerMap map[TaskState]func(*Task) TaskState
 
 var (
 	DoneTaskState  TaskState = "done"
@@ -21,7 +18,7 @@ var (
 // RegisterTaskType register task type
 func RegisterTaskType(taskType string) *TaskType {
 	taskTypes[taskType] = &TaskType{
-		handlers: orderedmap.New(),
+		handlers: make(TaskReflectMap),
 	}
 	return taskTypes[taskType]
 }
@@ -42,31 +39,37 @@ func GetTaskType(taskType string) (*TaskType, error) {
 
 // HasHandlers check if there are handlers
 func (t *TaskType) HasHandlers() bool {
-	handlerIds := t.handlers.Keys()
-	return len(handlerIds) > 0
+	return len(t.handlers) > 0
 }
 
-// AddHandler adds a handler to the task type
-func (t *TaskType) AddHandler(handlerName TaskState, handler func(*Task) TaskState) {
-	t.handlers.Set(string(handlerName), handler)
+func (t *TaskType) addHandler(handlerName TaskState, handler interface{}) {
+	t.handlers[string(handlerName)] = reflect.ValueOf(handler)
 }
 
 // AddHandlers adds multiple handles to a task type
 func (t *TaskType) AddHandlers(handlers TaskHandlerMap) {
 	for handlerName, handler := range handlers {
-		t.AddHandler(handlerName, handler)
+		if t.internalType == nil {
+			handleTypes := reflect.TypeOf(handler)
+			// we want the second one because the first one (0 index) will be task.Task type
+			handleType := handleTypes.In(1)
+
+			t.internalType = handleType
+		}
+
+		t.addHandler(handlerName, handler)
 	}
 }
 
 // GetHandler gets a handler by handler name
-func (t *TaskType) GetHandler(handlerName TaskState) (func(*Task) TaskState, error) {
-	handler, ok := t.handlers.Get(string(handlerName))
+func (t *TaskType) GetHandler(handlerName TaskState) (reflect.Value, error) {
+	handler, ok := t.handlers[string(handlerName)]
 
 	if !ok {
-		return nil, TaskHandlerDoesNotExistErr
+		return reflect.Value{}, TaskHandlerDoesNotExistErr
 	}
 
-	return handler.(func(*Task) TaskState), nil
+	return handler, nil
 }
 
 // GetFirstHandlerState gets the first handler state
@@ -74,6 +77,12 @@ func (t *TaskType) GetFirstHandlerState() TaskState {
 	return t.firstHandlerState
 }
 
+// SetFirstHandlerState sets the first handler state
 func (t *TaskType) SetFirstHandlerState(firstHandlerState TaskState) {
 	t.firstHandlerState = firstHandlerState
+}
+
+// GetInternalType gets the internal type
+func (t *TaskType) GetInternalType() reflect.Type {
+	return t.internalType
 }

@@ -3,6 +3,7 @@ package taskmngr
 import (
 	"context"
 	"github.com/EdwinJ0124/bot-base/internal/task"
+	"reflect"
 	"time"
 )
 
@@ -13,9 +14,11 @@ func handleTaskState(taskState task.TaskState, taskType *task.TaskType, t *task.
 		return task.ErrorTaskState
 	}
 
-	nextNextTaskType := nextTaskHandler(t)
+	// func (t *task.Task, internal *SiteInternal) task.TaskState
 
-	return nextNextTaskType
+	nextNextTaskType := nextTaskHandler.Call([]reflect.Value{reflect.ValueOf(t), reflect.ValueOf(t.Internal)})
+
+	return task.TaskState(nextNextTaskType[0].String())
 }
 
 // RunTask starts a task
@@ -53,6 +56,8 @@ func RunTask(t *task.Task) {
 		t.Active = false
 		return
 	}
+
+	t.Internal = reflect.New(taskType.GetInternalType()).Interface()
 
 	// loop the task states
 	for {
