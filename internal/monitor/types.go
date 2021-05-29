@@ -8,9 +8,9 @@ import (
 
 type Monitor struct {
 	ID          string             `json:"id"`
-	Params      map[string]string  `json:"params"`
+	Site        string             `json:"site"`
 	Type        string             `json:"type"`
-	Input       string             `json:"input"`
+	Product     string             `json:"input"`
 	ProxyListID string             `json:"proxyListID"`
 	Internal    interface{}        `json:"-"`
 	Context     context.Context    `json:"-"`

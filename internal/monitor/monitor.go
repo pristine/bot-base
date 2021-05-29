@@ -25,14 +25,16 @@ func DoesMonitorExist(id string) bool {
 }
 
 // CreateMonitor creates a monitor
-func CreateMonitor(input string) string {
+func CreateMonitor(monitorType, site, product string) string {
 	monitorMutex.Lock()
 	defer monitorMutex.Unlock()
 	id := shortuuid.New()
 
 	monitors[id] = &Monitor{
-		ID:    id,
-		Input: input,
+		ID:      id,
+		Product: product,
+		Type:    monitorType,
+		Site:    site,
 	}
 
 	return id

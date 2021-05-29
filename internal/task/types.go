@@ -10,6 +10,7 @@ type Task struct {
 	ID             string             `json:"id"`
 	Type           string             `json:"type"`
 	Site           string             `json:"site"`
+	Product        string             `json:"product"`
 	ProfileGroupID string             `json:"profileGroupID"`
 	ProxyListID    string             `json:"proxyListID"`
 	Context        context.Context    `json:"-"`
