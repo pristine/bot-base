@@ -2,6 +2,8 @@
 
 Bot-Base is a small project with concepts for most elements of a bot.
 
+Feel free to contact me on [Twitter](https://twitter.com/pristine1862) with any questions.
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
