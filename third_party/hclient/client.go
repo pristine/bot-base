@@ -46,7 +46,10 @@ func NewClient(parameters ...string) (*Client, error) {
 
 // NewRequest creates a new request under a specified http client
 func (c *Client) NewRequest() *Request {
-	return newRequest(c)
+	return &Request{
+		client: c,
+		header: make(http.Header),
+	}
 }
 
 // AddCookie adds a new cookie to the request client cookie jar

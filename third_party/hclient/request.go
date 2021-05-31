@@ -8,13 +8,6 @@ import (
 	"strings"
 )
 
-func newRequest(c *Client) *Request {
-	return &Request{
-		client: c,
-		header: make(http.Header),
-	}
-}
-
 // SetURL sets the url of the request
 func (r *Request) SetURL(url string) *Request {
 	r.url = url
