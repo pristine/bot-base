@@ -11,6 +11,7 @@ Please make sure to update tests as appropriate.
 
 ## Todo
 - Add tests
+- Merge monitoring and regular tasks to reduce code redundancy
 - Better monitor notifications
 
 ## License
