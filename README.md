@@ -1,6 +1,6 @@
-# Bot-Base
-
 **DEPRACATED because the base could be improved drastically and contains a lot of coding mistakes**
+
+# Bot-Base
 
 Bot-Base is a small project with concepts for most elements of a bot.
 
