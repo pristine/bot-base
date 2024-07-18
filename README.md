@@ -1,4 +1,4 @@
-**DEPRACATED because the base could be improved drastically and contains a lot of coding mistakes**
+**DEPRACATED**
 
 # Bot-Base
 
